@@ -1,0 +1,17 @@
+{% extends 'layouts/form.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  <form method="post" class="form"  enctype="multipart/form-data">
+       {{ form.csrf_token }}
+      {%if message %}{{message}}{%endif%}
+    <h3 class="form-heading">Login <a href="{{ url_for('process_data') }}" title="Back to homepage">
+        <i class="fa fa-home pull-right">
+
+        </i></a></h3>
+   <label>{{form.file.label.text}}</label> {{ form.file(class_ = 'form-control first-input', placeholder = form.file.label.text, required = true, autofocus = true) }}
+    <label>{{form.first_choice.label.text}}</label>{{ form.first_choice(class_ = 'form-control last-input', placeholder = form.first_choice.label.text, required = true) }}
+    <label>{{form.second_choice.label.text}}</label>{{ form.second_choice(class_ = 'form-control last-input', placeholder = form.second_choice.label.text, required = true) }}
+
+    <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" >
+  </form>
+{% endblock %}
