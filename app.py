@@ -53,6 +53,8 @@ def process_data():
     if request.method == "POST":
         # form = ProcessDataForm(request.form)
         if form.validate_on_submit():
+            first_choice = form.first_choice.data
+            second_choice = form.second_choice.data
             f = form.file.data
             filename = secure_filename(f.filename)
             f.save(filename )
