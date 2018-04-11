@@ -63,10 +63,26 @@ def process_data():
 
         else:
             return render_template('forms/login.html',  form=form, message=form.errors), 500
-            # print(form.validate_on_submit())
-            # return redirect(url_for('home'))
 
 
+from flask import Response
+
+@app.route('/process_file', methods=['POST'])
+def read_file():
+    if request.method == "POST":
+        try:
+            file = request.files['file']
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(filename)
+
+        except Exception as e:
+            print(str(e))
+
+        '''
+         from here on read columns from the saved file and send in the response in first choice and second choice
+        '''
+        return Response("{'first_choice':'b','second_choice':'b}", status=200, mimetype='application/json')
 
 
 if not app.debug:
