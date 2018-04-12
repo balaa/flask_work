@@ -66,6 +66,7 @@ def process_data():
 
 
 from flask import Response
+import pandas as pd
 
 @app.route('/process_file', methods=['POST'])
 def read_file():
@@ -75,6 +76,10 @@ def read_file():
             if file:
                 filename = secure_filename(file.filename)
                 file.save(filename)
+                print(filename)
+                df = pd.DataFrame.from_csv("C:\\Users\\mxc1185\\Desktop\\survey_wordcloud.csv",encoding="windows-1252")
+                print(df.columns)
+                
 
         except Exception as e:
             print(str(e))
