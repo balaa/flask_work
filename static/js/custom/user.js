@@ -11,8 +11,11 @@ $(function() {
             cache: false,
             processData: false,
             async: false,
-            success: function(data) {
-                console.log('Success!');
+            success: function(res) {
+                json_values = res['data']
+                $.each(json_values, function(key, value) {
+                    $("[id$=choice]").append('<option value="' +  value + '">' +  value + '</option>');
+                });
             },
         });
     });
