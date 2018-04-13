@@ -8,6 +8,7 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
+import json
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -76,10 +77,10 @@ def read_file():
             if file:
                 filename = secure_filename(file.filename)
                 file.save(filename)
-                print(filename)
-                df = pd.DataFrame.from_csv("C:\\Users\\mxc1185\\Desktop\\survey_wordcloud.csv",encoding="windows-1252")
-                print(df.columns)
-                
+                df = pd.DataFrame.from_csv(filename, encoding="windows-1252")
+                data = df.columns.values.tolist()
+
+                return Response(json.dumps({"data": data, "status": "success"}), status=200, mimetype='application/json')
 
         except Exception as e:
             print(str(e))
@@ -87,7 +88,7 @@ def read_file():
         '''
          from here on read columns from the saved file and send in the response in first choice and second choice
         '''
-        return Response("{'first_choice':'b','second_choice':'b}", status=200, mimetype='application/json')
+        return Response({"data": [],"status":"failed"}, status=200, mimetype='application/json')
 
 
 if not app.debug:
